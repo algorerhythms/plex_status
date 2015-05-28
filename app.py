@@ -1,7 +1,7 @@
 # minhaz mahmud
 # flask app to monitor Plex server
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from pprint import pprint
 import subprocess
 
@@ -76,10 +76,11 @@ def index():
 @requires_auth
 def update():
 	subprocess.Popen(["sh", "/plex/plexscript.sh"])
-	return "Starting transfer... please wait a few minutes"
+	return redirect(url_for('index'))
 	
 
 if __name__ == '__main__':
     app.run(
+#		debug=True,
 		host='0.0.0.0'
     )

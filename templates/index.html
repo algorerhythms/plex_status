@@ -1,68 +1,72 @@
 <html>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<h1>Plex Status Page</h1>
+	<head>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Plex Status Page</h1>
+				</div>
+			</div>
+			<div class="list-group">
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">
+						Plex Media Server
+					</h4>
+					<p class="list-group-item-text">
+						{% if plex_status %}
+							<input class="btn btn-success" type="submit" value="Running" disabled>
+						{% else %}
+							<input class="btn btn-danger" type="submit" value="Not Running" disabled>
+						{% endif %}								  
+					</p>
+				</div>
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">
+						RSync Status  
+					</h4>
+					<p class="list-group-item-text">
+						<form action='/update', method='post'>
+						{% if rsync_status %}
+							<input class="btn btn-danger" type="submit" value="Already Running" disabled>
+						{% else %}
+							<input class="btn btn-success" type="submit" value="Run Update">
+						{% endif %}		
+						</form>
+					</p>
+
+				</div>
+				<div class="list-group-item" style="overflow:auto">
+					<h4 class="list-group-item-heading">
+						Storage Capacity
+					</h4>
+					<table class="col-md-12 table-bordered table-striped table-condensed cf">
+						<thead class="cf">
+							<tr>
+								<th>Device</th>
+								<th class="numeric">Capacity (GB)</th>
+								<th class="numeric">Used (GB)</th>
+								<th class="numeric">Free (GB)</th>
+								<th class="numeric">% Used</th>
+								<th class="numeric">Mount Point</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td data-title="Device">{{ storage.device }}</td>
+								<td data-title="Capacity" class="numeric">{{ storage.size }}</td>
+								<td data-title="Used" class="numeric">{{ storage.used }}</td>
+								<td data-title="Free" class="numeric">{{ storage.available }}</td>
+								<td data-title="% Used" class="numeric">{{ storage.percent }}</td>
+								<td data-title="Mount Point"> {{ storage.mountpoint }} </td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
 			</div>
 		</div>
-		<div class="list-group">
-			<div class="list-group-item">
-				<h4 class="list-group-item-heading">
-					Plex Media Server
-				</h4>
-				<p class="list-group-item-text">
-					{% if plex_status %}
-						<input class="btn btn-success" type="submit" value="Running" disabled>
-					{% else %}
-						<input class="btn btn-danger" type="submit" value="Not Running" disabled>
-					{% endif %}								  
-				</p>
-			</div>
-			<div class="list-group-item">
-				<h4 class="list-group-item-heading">
-					RSync Status  
-				</h4>
-				<p class="list-group-item-text">
-					<form action='/update', method='post'>
-					{% if rsync_status %}
-						<input class="btn btn-danger" type="submit" value="Already Running" disabled>
-					{% else %}
-						<input class="btn btn-success" type="submit" value="Run Update">
-					{% endif %}		
-					</form>
-				</p>
-				
-			</div>
-			<div class="list-group-item" style="overflow:auto">
-				<h4 class="list-group-item-heading">
-					Storage Capacity
-				</h4>
-				<table class="col-md-12 table-bordered table-striped table-condensed cf">
-					<thead class="cf">
-						<tr>
-							<th>Device</th>
-							<th class="numeric">Capacity (GB)</th>
-							<th class="numeric">Used (GB)</th>
-							<th class="numeric">Free (GB)</th>
-							<th class="numeric">% Used</th>
-							<th class="numeric">Mount Point</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td data-title="Device">{{ storage.device }}</td>
-							<td data-title="Capacity" class="numeric">{{ storage.size }}</td>
-							<td data-title="Used" class="numeric">{{ storage.used }}</td>
-							<td data-title="Free" class="numeric">{{ storage.available }}</td>
-							<td data-title="% Used" class="numeric">{{ storage.percent }}</td>
-							<td data-title="Mount Point"> {{ storage.mountpoint }} </td>
-						</tr>
-					</tbody>
-				</table>
-				
-			</div>
-		</div>
-	</div>
+	</body>
 </html>
