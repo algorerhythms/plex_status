@@ -33,10 +33,15 @@ def requires_auth(f):
         return f(*args, **kwargs)
     return decorated
 
-
 @app.route('/')
 @requires_auth
 def index():
+	return redirect(url_for('status'))
+
+@app.route('/status/')
+@app.route('/status/<flag>')
+@requires_auth
+def status(flag=0):
 	
 	# Check if Plex is running
 	p1 = subprocess.Popen(["ps", "-ef"], stdout=subprocess.PIPE)
@@ -54,7 +59,7 @@ def index():
 	p1 = subprocess.Popen(['pgrep', 'rsync'], stdout=subprocess.PIPE)
 	output = p1.communicate()[0]
 	rsync_status = True
-	if(output.strip() == ""):
+	if(output.strip() == "" and flag != '1'):
 		rsync_status = False
 	
 	
@@ -76,7 +81,7 @@ def index():
 @requires_auth
 def update():
 	subprocess.Popen(["sh", "/plex/plexscript.sh"])
-	return redirect(url_for('index'))
+	return redirect(url_for('status', flag=1))
 	
 
 if __name__ == '__main__':
