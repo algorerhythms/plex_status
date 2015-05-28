@@ -1,7 +1,6 @@
 <html>
 	<head>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	</head>
 	<body onunload="">
 		<div class="container">
@@ -20,12 +19,12 @@
 							<input class="btn btn-success" type="submit" value="Running" disabled>
 						{% else %}
 							<input class="btn btn-danger" type="submit" value="Not Running" disabled>
-						{% endif %}								  
+						{% endif %}
 					</p>
 				</div>
 				<div class="list-group-item">
 					<h4 class="list-group-item-heading">
-						RSync Status  
+						RSync Status
 					</h4>
 					<p class="list-group-item-text">
 						<form action='/update', method='post'>
@@ -33,7 +32,7 @@
 							<input class="btn btn-danger" type="submit" value="Already Running" disabled>
 						{% else %}
 							<input class="btn btn-success" type="submit" value="Run Update">
-						{% endif %}		
+						{% endif %}
 						</form>
 					</p>
 
@@ -68,5 +67,6 @@
 				</div>
 			</div>
 		</div>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	</body>
 </html>
