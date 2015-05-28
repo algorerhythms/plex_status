@@ -34,7 +34,7 @@ def requires_auth(f):
     return decorated
 
 
-@app.route('/status')
+@app.route('/')
 @requires_auth
 def index():
 	
