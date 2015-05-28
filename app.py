@@ -59,7 +59,7 @@ def index():
 	
 	
 	# Check Disk Information for /data
-	df = subprocess.Popen(["df", "-h", "/"], stdout=subprocess.PIPE)
+	df = subprocess.Popen(["df", "-h", "/data"], stdout=subprocess.PIPE)
 	output = df.communicate()[0].split("\n")[1].split()
 	storage_status = {
 		'device': output[0],
