@@ -24,6 +24,20 @@
 				</div>
 				<div class="list-group-item">
 					<h4 class="list-group-item-heading">
+						Plex Media Scanner
+					</h4>
+					<p class="list-group-item-text">
+						<form action='/scan', method='post'>
+						{% if scanner_status %}
+							<input class="btn btn-danger" type="submit" value="Already Running" disabled>
+						{% else %}
+							<input class="btn btn-success" type="submit" value="Run Scan">
+						{% endif %}
+						</form>
+					</p>
+				</div>
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">
 						RSync Status
 					</h4>
 					<p class="list-group-item-text">

@@ -54,8 +54,20 @@ def status(flag=0):
 	if(output.strip() == ""):
 		plex_status = False
 	
-	# Check if Rsync is already running
+
+	# Check if Plex scanner is running
+	p1 = subprocess.Popen(["ps", "-ef"], stdout=subprocess.PIPE)
+	p2 = subprocess.Popen(["grep", "[P]lex Media Scanner"], stdin=p1.stdout, stdout=subprocess.PIPE)
 	
+	output = p2.communicate()[0]
+	scanner_status = True
+	
+	# if scanner isn't running, set to false
+	if(output.strip() == ""):
+		scanner_status = False
+
+
+	# Check if Rsync is already running
 	p1 = subprocess.Popen(['pgrep', 'rsync'], stdout=subprocess.PIPE)
 	output = p1.communicate()[0]
 	rsync_status = True
@@ -75,17 +87,23 @@ def status(flag=0):
 		'mountpoint': output[-1]
 	}
 	
-	return render_template('index.html', plex_status=plex_status, rsync_status=rsync_status, storage=storage_status)
+	return render_template('index.html', plex_status=plex_status, scanner_status=scanner_status, rsync_status=rsync_status, storage=storage_status)
 
 @app.route('/update', methods=['POST'])
 @requires_auth
 def update():
-	subprocess.Popen(["sh", "/plex/plexscript.sh"])
+	subprocess.Popen(["sh", "scripts/plexscript.sh"])
 	return redirect(url_for('status', flag=1))
 	
+@app.route('/scan', methods=['POST'])
+@requires_auth
+def scan():
+	subprocess.Popen(["sh", "scripts/scan.sh"])
+	return redirect(url_for('status'))
+
 
 if __name__ == '__main__':
     app.run(
-#		debug=True,
+		debug=True,
 		host='0.0.0.0'
     )
