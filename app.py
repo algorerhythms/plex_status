@@ -73,7 +73,9 @@ def status(flag=0):
 	rsync_status = True
 	if(output.strip() == "" and flag != '1'):
 		rsync_status = False
-	
+
+	# Get last outputted progress from rsync
+	rsync_prog = subprocess.Popen(['tail', '-n 1 /plex/rsyncprog'], stdout=subprocess.PIPE).communicate()[0]
 	
 	# Check Disk Information for /data
 	df = subprocess.Popen(["df", "-h", "/data"], stdout=subprocess.PIPE)
@@ -87,7 +89,7 @@ def status(flag=0):
 		'mountpoint': output[-1]
 	}
 	
-	return render_template('index.html', plex_status=plex_status, scanner_status=scanner_status, rsync_status=rsync_status, storage=storage_status)
+	return render_template('index.html', plex_status=plex_status, scanner_status=scanner_status, rsync_status=rsync_status, rsync_prog=rsync_prog, storage=storage_status)
 
 @app.route('/update', methods=['POST'])
 @requires_auth

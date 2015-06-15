@@ -69,8 +69,8 @@ ssh $remoteuser@$remoteserver touch $sourcefolder/.rsync-timestamp
 trap cleanfail 1 2 3 15
 
 # If all is well so far, commence the rsync automated download from the seedbox. Run it twice in case if more files came in during the first rsync process.
-rsync $syncvar $remoteuser@$remoteserver:$sourcefolder $targetfolder
-rsync $syncvar $remoteuser@$remoteserver:$sourcefolder $targetfolder
+rsync --info=progress2 $syncvar $remoteuser@$remoteserver:$sourcefolder $targetfolder | awk '{ print $3; }' > /plex/rsyncprog
+rsync --info=progress2 $syncvar $remoteuser@$remoteserver:$sourcefolder $targetfolder | awk '{ print $3; }' > /plex/rsyncprog
 chown -R plex:plex $targetfolder
 
 # Trap any errors, log and email them if rsync does not terminate with a successful exit value (0). Otherwise, continue to delete symlinks now that we're done with them. If the deletion of symlinks fails, this error is also trapped, logged and emailed.
