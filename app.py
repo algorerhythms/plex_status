@@ -75,7 +75,7 @@ def status(flag=0):
 		rsync_status = False
 
 	# Get last outputted progress from rsync
-	rsync_prog = subprocess.Popen(['tail', '-n 1 /plex/rsyncprog'], stdout=subprocess.PIPE).communicate()[0]
+	rsync_prog = subprocess.Popen(['tail', '-n', '1', '/plex/rsyncprog'], stdout=subprocess.PIPE).communicate()[0]
 	
 	# Check Disk Information for /data
 	df = subprocess.Popen(["df", "-h", "/data"], stdout=subprocess.PIPE)
