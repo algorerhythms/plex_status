@@ -1,11 +1,9 @@
 # plex_status
-Plex server information
-
 
 Description
 -----------
 
-    This is a plex app or something
+    Plex server information
 
 
 Installation
@@ -23,11 +21,11 @@ Create a virtual environment:
     
 Activate virtual environment:
     
-    . venv/bin/activate
+    source venv/bin/activate
 
-Now that the python virtual environment is running go ahead and install Flask into the virtual environment
+Now that the python virtual environment is running go ahead and install Flask and all dependencies into the virtual environment
     
-    pip install Flask
+    pip install -r requirements.txt
 
 Build/Develop
 -----------
