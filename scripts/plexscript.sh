@@ -4,7 +4,7 @@
 
 # Configuration, should be all set up.
 remoteuser="minhaz3"
-remoteserver="beef.whatbox.ca"
+remoteserver="endeavour.whatbox.ca"
 sourcefolder="/home/minhaz3/finished/"
 targetfolder="/data/files/finished/TVShows"
 templog=`mktemp -t templog.XXXX`
